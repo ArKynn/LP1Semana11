@@ -26,13 +26,13 @@ public class View
             case "ListPlayerMenu":
                 Console.WriteLine("\nList of players");
                 Console.WriteLine("-------------\n");
-
-                // Show each player in the enumerable object
-                foreach (Player p in _players)
-                {
-                    Console.WriteLine($" -> {p.Name} with a score of {p.Score}");
-                }
-                Console.WriteLine();
+                break;
+            
+            case "Farewell":
+                Console.WriteLine("Bye!");
+                break;
+            case "WaitingKeyPress":
+                Console.Write("\nPress any key to continue...\n");
                 break;
         }
     }
