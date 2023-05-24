@@ -4,6 +4,11 @@ public class Controller
 {
     private readonly List<Player> _players;
     private bool _isInputValid;
+    // Comparer for comparing player by name (alphabetical order)
+    private IComparer<Player>? compareByName;
+
+    // Comparer for comparing player by name (reverse alphabetical order)
+    private IComparer<Player>? compareByNameReverse;
     public Controller(List<Player> players)
     {
         _players = players;
@@ -31,7 +36,12 @@ public class Controller
                 
                 case "3":
                     IEnumerable<Player> playersWithGreaterScore = FindPlayersWithGreaterScoreThan(_players);
+                    View.ShowMenu("ListPlayerMenu");
                     ListPlayers(playersWithGreaterScore);
+                    break;
+                
+                case "4":
+                    SortPlayerList(_players);
                     break;
                 
                 case "0":
@@ -122,6 +132,35 @@ public class Controller
                 yield return p;
             }
         }
+    }
+
+    private void SortPlayerList(List<Player> playerList)
+    {
+        bool isPlayerOrderInvalid = true;
+        while (isPlayerOrderInvalid)
+        {
+            PlayerOrder playerOrder = Enum.Parse<PlayerOrder>(InputValidationLoop(View.SortListMenu(), typeof(int)));
+        
+            switch (playerOrder)
+            {
+                case PlayerOrder.ByScore:
+                    playerList.Sort();
+                    isPlayerOrderInvalid = false;
+                    break;
+                case PlayerOrder.ByName:
+                    playerList.Sort(compareByName);
+                    isPlayerOrderInvalid = false;
+                    break;
+                case PlayerOrder.ByNameReverse:
+                    playerList.Sort(compareByNameReverse);
+                    isPlayerOrderInvalid = false;
+                    break;
+                default:
+                    Console.Error.WriteLine("\n>>> Unknown player order! <<<\n");
+                    break;
+            }
+        }
+        
     }
 
 

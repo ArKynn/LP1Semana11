@@ -27,6 +27,9 @@ public class View
                 Console.WriteLine("\nList of players");
                 Console.WriteLine("-------------\n");
                 break;
+            
+            case "SortListMenu":
+                
 
             case "Farewell":
                 Console.WriteLine("Bye!");
@@ -50,5 +53,16 @@ public class View
     public static void WriteError()
     {
         Console.Error.WriteLine("\n>>> Invalid Input Type or Value <<<\n");
+    }
+
+    public static string SortListMenu()
+    {
+        return
+            "Player order\n" +
+            "------------\n" +
+            $"{(int)PlayerOrder.ByScore}. Order by score\n" +
+            $"{(int)PlayerOrder.ByName}. Order by name\n" +
+            $"{(int)PlayerOrder.ByNameReverse}. Order by name (reverse)\n" +
+            "\n>";
     }
 }
