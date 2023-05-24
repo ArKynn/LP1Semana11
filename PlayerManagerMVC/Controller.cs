@@ -2,7 +2,8 @@
 
 public class Controller
 {
-    private List<Player> _players;
+    private readonly List<Player> _players;
+    private bool _isInputValid;
     public Controller(List<Player> players)
     {
         _players = players;
@@ -20,16 +21,16 @@ public class Controller
             switch (option)
             {
                 case "1":
-                    view.ShowMenu("InsertPlayerMenu");
                     InsertPlayer(_players);
                     break;
                 
                 case "2":
                     view.ShowMenu("ListPlayerMenu");
+                    ListPlayers(_players);
                     break;
-                
+
                 case "0":
-                    View.Write("Bye");
+                    view.ShowMenu("Farewell");
                     isRunning = false;
                     break;
                 default:
@@ -38,58 +39,68 @@ public class Controller
             }
             
             // Wait for user to press a key...
-            Console.Write("\nPress any key to continue...");
+            view.ShowMenu("WaitingKeyPress");
             Console.ReadKey(true);
-            Console.WriteLine("\n");
         }
     }
 
     private void InsertPlayer(List<Player> players)
     {
-        bool isInputValid = false;
-        string? name = "";
-        int score = 0;
-        while (!isInputValid)
-        {
-            View.Write("Name: ");
-            string? newname = View.GetInput();
-            
-            if (CheckIfType(typeof(string), newname))
-            {
-                name = newname;
-                isInputValid = true;
-            }
-            else
-            {
-                View.WriteError();
-            }
-        }
+        var name = InputValidationLoop("Name: ", typeof(string));
+        int score = Convert.ToInt16(InputValidationLoop("Score :", typeof(int)));
 
-        isInputValid = false;
-        while (!isInputValid)
-        {
-            View.Write("Score: ");
-            string? newscore = View.GetInput();
-            
-            if (CheckIfType(typeof(int), newscore))
-            {
-                score = Convert.ToInt16(newscore);
-                isInputValid = true;
-            }
-            else
-            {
-                View.WriteError();
-            }
-        }
-        
         Player newPlayer = new Player(name, score);
         players.Add(newPlayer);
     }
-    public static bool CheckIfType(Type type, string? input)
+    private static bool CheckIfType(Type type, string? input)
     {
         if (type == typeof(int)) return input!.All(char.IsDigit);
-        if (type == typeof(string)) return input!.All(char.IsLetter);
-        return false;
+        return type == typeof(string) && input!.All(char.IsLetter);
     }
+
+    private string CheckIfInputValid(Type expectedType)
+    {
+        string? output = View.GetInput();
+        if (CheckIfType(expectedType, output))
+        {
+            _isInputValid = true;
+            return output!;
+
+        }
+        View.WriteError();
+        return "Error:0";
+    }
+
+    private string InputValidationLoop(string messageToDisplay, Type expectedType)
+    {
+        string output = "";
+        _isInputValid = false;
+        while (!_isInputValid)
+        {
+            View.Write(messageToDisplay);
+            switch (CheckIfInputValid(expectedType))
+            {
+                case "Error:0":
+                    break;
+                default:
+                    output = default!;
+                    _isInputValid = true;
+                    break;
+            }
+        }
+
+        return output;
+    }
+
+    private static void ListPlayers(List<Player> players)
+    {
+        // Show each player in the enumerable object
+        foreach (Player p in players)
+        {
+            View.Write($" -> {p.Name} with a score of {p.Score}");
+        }
+        View.Write("");
+    }
+
     
 }
