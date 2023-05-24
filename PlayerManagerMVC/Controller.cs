@@ -15,7 +15,7 @@ public class Controller
         
         while (isRunning)
         {
-            view.ShowMenu("MainMenu");
+            View.ShowMenu("MainMenu");
             string? option = View.GetInput();
 
             switch (option)
@@ -25,12 +25,17 @@ public class Controller
                     break;
                 
                 case "2":
-                    view.ShowMenu("ListPlayerMenu");
+                    View.ShowMenu("ListPlayerMenu");
                     ListPlayers(_players);
                     break;
-
+                
+                case "3":
+                    IEnumerable<Player> playersWithGreaterScore = FindPlayersWithGreaterScoreThan(_players);
+                    ListPlayers(playersWithGreaterScore);
+                    break;
+                
                 case "0":
-                    view.ShowMenu("Farewell");
+                    View.ShowMenu("Farewell");
                     isRunning = false;
                     break;
                 default:
@@ -39,7 +44,7 @@ public class Controller
             }
             
             // Wait for user to press a key...
-            view.ShowMenu("WaitingKeyPress");
+            View.ShowMenu("WaitingKeyPress");
             Console.ReadKey(true);
         }
     }
@@ -78,21 +83,22 @@ public class Controller
         while (!_isInputValid)
         {
             View.Write(messageToDisplay);
-            switch (CheckIfInputValid(expectedType))
+
+            string checkOutput = CheckIfInputValid(expectedType);
+            if (checkOutput == "Error:0")
             {
-                case "Error:0":
-                    break;
-                default:
-                    output = default!;
-                    _isInputValid = true;
-                    break;
+            }
+            else
+            {
+                output = checkOutput;
+                _isInputValid = true;
             }
         }
 
         return output;
     }
 
-    private static void ListPlayers(List<Player> players)
+    private static void ListPlayers(IEnumerable<Player> players)
     {
         // Show each player in the enumerable object
         foreach (Player p in players)
@@ -101,6 +107,25 @@ public class Controller
         }
         View.Write("");
     }
+    
+    private IEnumerable<Player> FindPlayersWithGreaterScoreThan(List<Player> players)
+    {
+        int minScore = Convert.ToInt32(InputValidationLoop("\nMinimum score player should have?", typeof(int)));
+        // Cycle all players in the original player list
+        foreach (Player p in players)
+        {
+            // If the current player has a score higher than the
+            // given value....
+            if (p.Score > minScore)
+            {
+                // ...return him as a member of the player enumerable
+                yield return p;
+            }
+        }
+    }
+
+
+
 
     
 }

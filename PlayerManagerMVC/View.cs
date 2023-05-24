@@ -8,7 +8,7 @@ public class View
         _players = players;
     }
     
-    public void ShowMenu(string menuName)
+    public static void ShowMenu(string menuName)
     {
         switch (menuName)
         {
@@ -27,7 +27,7 @@ public class View
                 Console.WriteLine("\nList of players");
                 Console.WriteLine("-------------\n");
                 break;
-            
+
             case "Farewell":
                 Console.WriteLine("Bye!");
                 break;
