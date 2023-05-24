@@ -22,6 +22,18 @@ public class View
                 Console.WriteLine("0. Quit\n");
                 Console.Write("Your choice > ");
                 break;
+            
+            case "ListPlayerMenu":
+                Console.WriteLine("\nList of players");
+                Console.WriteLine("-------------\n");
+
+                // Show each player in the enumerable object
+                foreach (Player p in _players)
+                {
+                    Console.WriteLine($" -> {p.Name} with a score of {p.Score}");
+                }
+                Console.WriteLine();
+                break;
         }
     }
     
@@ -37,7 +49,6 @@ public class View
     
     public static void WriteError()
     {
-        Console.Error.WriteLine("\n>>> Invalid Input Type <<<\n");
+        Console.Error.WriteLine("\n>>> Invalid Input Type or Value <<<\n");
     }
-    
 }

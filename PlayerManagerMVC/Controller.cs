@@ -24,6 +24,10 @@ public class Controller
                     InsertPlayer(_players);
                     break;
                 
+                case "2":
+                    view.ShowMenu("ListPlayerMenu");
+                    break;
+                
                 case "0":
                     View.Write("Bye");
                     isRunning = false;
@@ -32,6 +36,11 @@ public class Controller
                     View.WriteError();
                     break;
             }
+            
+            // Wait for user to press a key...
+            Console.Write("\nPress any key to continue...");
+            Console.ReadKey(true);
+            Console.WriteLine("\n");
         }
     }
 
