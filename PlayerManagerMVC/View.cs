@@ -25,7 +25,7 @@ public class View
         }
     }
     
-    public string? GetInput()
+    public static string? GetInput()
     {
         return Console.ReadLine();
     }
@@ -33,6 +33,11 @@ public class View
     public static void Write(string message)
     {
         Console.WriteLine(message);
+    }
+    
+    public static void WriteError()
+    {
+        Console.Error.WriteLine("\n>>> Invalid Input Type <<<\n");
     }
     
 }

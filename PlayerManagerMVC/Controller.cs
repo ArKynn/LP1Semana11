@@ -15,20 +15,72 @@ public class Controller
         while (isRunning)
         {
             view.ShowMenu("MainMenu");
-            string? option = view.GetInput();
+            string? option = View.GetInput();
 
             switch (option)
             {
+                case "1":
+                    view.ShowMenu("InsertPlayerMenu");
+                    InsertPlayer(_players);
+                    break;
                 
                 case "0":
                     View.Write("Bye");
                     isRunning = false;
                     break;
                 default:
-                    Console.Error.WriteLine("\n>>> Unknown option! <<<\n");
+                    View.WriteError();
                     break;
             }
         }
+    }
+
+    private void InsertPlayer(List<Player> players)
+    {
+        bool isInputValid = false;
+        string? name = "";
+        int score = 0;
+        while (!isInputValid)
+        {
+            View.Write("Name: ");
+            string? newname = View.GetInput();
+            
+            if (CheckIfType(typeof(string), newname))
+            {
+                name = newname;
+                isInputValid = true;
+            }
+            else
+            {
+                View.WriteError();
+            }
+        }
+
+        isInputValid = false;
+        while (!isInputValid)
+        {
+            View.Write("Score: ");
+            string? newscore = View.GetInput();
+            
+            if (CheckIfType(typeof(int), newscore))
+            {
+                score = Convert.ToInt16(newscore);
+                isInputValid = true;
+            }
+            else
+            {
+                View.WriteError();
+            }
+        }
+        
+        Player newPlayer = new Player(name, score);
+        players.Add(newPlayer);
+    }
+    public static bool CheckIfType(Type type, string? input)
+    {
+        if (type == typeof(int)) return input!.All(char.IsDigit);
+        if (type == typeof(string)) return input!.All(char.IsLetter);
+        return false;
     }
     
 }
