@@ -2,12 +2,14 @@
 
 public class Program
 {
-    public void Main()
+    public static void Main()
     {
         List<Player> players = new List<Player>();
 
         Controller controller = new Controller(players);
 
         View view = new View(players, controller);
+
+        controller.Run(view);
     }
 }
