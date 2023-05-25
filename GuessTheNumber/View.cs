@@ -39,6 +39,10 @@ namespace GuessTheNumber
                 case "Error":
                     Console.WriteLine("Error: Invalid input type or value!");
                     break;
+                
+                case "Thanks":
+                    Console.WriteLine("Thank you for playing Guess the Number!");
+                    break;
             }
         }
 
