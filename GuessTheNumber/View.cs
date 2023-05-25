@@ -35,6 +35,10 @@ namespace GuessTheNumber
                         "Congratulations! You guessed the number correctly!");
                     Console.WriteLine("Number of attempts: " + Controller.Attempts);
                     break;
+                
+                case "Error":
+                    Console.WriteLine("Error: Invalid input type or value!");
+                    break;
             }
         }
 
