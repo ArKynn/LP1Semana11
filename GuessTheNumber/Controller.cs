@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace GuessTheNumber
 {
@@ -16,6 +17,7 @@ namespace GuessTheNumber
         public static int Attempts { get; private set; }
         private bool _guessedCorrectly = false;
         private bool _isInputValid;
+        private bool _isGuessValid;
 
         public void Run(View view)
         {
@@ -26,11 +28,42 @@ namespace GuessTheNumber
 
             while (!_guessedCorrectly)
             {
-                View.ShowMessage("Guess");
+                _isGuessValid = false;
+                while (!_isGuessValid)
+                {
+                    View.ShowMessage("Guess");
+                    int unverifiedGuess = Convert.ToInt16(InputValidationLoop());
+                    if (unverifiedGuess > 0 && unverifiedGuess < 101)
+                    {
+                        _guess = unverifiedGuess;
+                        Attempts++;
+                        _isGuessValid = true;
+                    }
+                    else
+                    {
+                        View.ShowMessage("Error");
+                    }
+                    
+                }
+                
+                if (_guess == _targetNum)
+                {
+                    View.ShowMessage("CorrectGuess");
+                    _guessedCorrectly = true;
+                }
+                else if (_guess > _targetNum)
+                {
+                    View.ShowMessage("HighGuess");
+                }
+                else if (_guess < _targetNum)
+                {
+                    View.ShowMessage("LowGuess");
+                }
             }
+            View.ShowMessage("Thanks");
         }
         
-        private static bool CheckIfType(string? input)
+        private static bool CheckIfType(string input)
         {
             return input!.All(char.IsDigit);
         }
@@ -57,6 +90,7 @@ namespace GuessTheNumber
                 string checkOutput = CheckIfInputValid();
                 if (checkOutput == "Error:0")
                 {
+                    View.ShowMessage("Guess");
                 }
                 else
                 {
