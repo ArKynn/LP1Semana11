@@ -18,6 +18,10 @@ namespace GuessTheNumber
                     Console.WriteLine("I have chosen a number between 1 and 100.");
                     break;
                 
+                case "Guess":
+                    Console.Write("Take a guess: ");
+                    break;
+                
                 case "LowGuess":
                     Console.WriteLine("Too low! Try again.");
                     break;
@@ -32,6 +36,11 @@ namespace GuessTheNumber
                     Console.WriteLine("Number of attempts: " + Controller.Attempts);
                     break;
             }
+        }
+
+        public static string GetInput()
+        {
+            return Console.ReadLine();
         }
     }
 }
