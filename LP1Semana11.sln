@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerManagerMVC", "PlayerManagerMVC\PlayerManagerMVC.csproj", "{FA8EE1F3-C9E2-4AFA-B1E6-C6D23A619045}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessTheNumber", "GuessTheNumber\GuessTheNumber.csproj", "{21DCDBC0-BDEF-4CE3-9230-618501F16DC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{FA8EE1F3-C9E2-4AFA-B1E6-C6D23A619045}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA8EE1F3-C9E2-4AFA-B1E6-C6D23A619045}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA8EE1F3-C9E2-4AFA-B1E6-C6D23A619045}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21DCDBC0-BDEF-4CE3-9230-618501F16DC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21DCDBC0-BDEF-4CE3-9230-618501F16DC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21DCDBC0-BDEF-4CE3-9230-618501F16DC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21DCDBC0-BDEF-4CE3-9230-618501F16DC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
