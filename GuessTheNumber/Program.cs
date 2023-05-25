@@ -12,7 +12,7 @@ namespace GuessTheNumber
 
             View view = new View(random, controller);
 
-            Controller.Run(view);
+            controller.Run(view);
         }
     }
 }
